@@ -8,12 +8,16 @@ import {
   LabelList,
 } from "recharts";
 
-const data = [
-  { name: "A", percentage: 80 },
-  { name: "B", percentage: 20 },
-];
+interface ChartProps {
+  predictions: Record<string, number>;
+}
 
-function Chart() {
+function Chart({ predictions }: ChartProps) {
+  const data = Object.entries(predictions).map(([name, percentage]) => ({
+    name,
+    percentage,
+  }));
+
   return (
     <div className="p-4">
       <h2 className="text-lg font-semibold mb-4">분석 결과</h2>

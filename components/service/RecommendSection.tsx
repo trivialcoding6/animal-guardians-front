@@ -2,6 +2,7 @@
 
 import { MapPin, Phone, ShieldCheck } from "lucide-react";
 import Recommend from "./Recommend";
+import { usePredictionStore } from "@/store/prediction";
 import Section from "./Section";
 import { Button } from "../ui/button";
 
@@ -30,6 +31,12 @@ const insurances = [
 ];
 
 export default function RecommendationSection() {
+  const { predictions } = usePredictionStore();
+
+  if (!predictions) {
+    return null;
+  }
+
   return (
     <Section className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white">
       {/* 주변 동물병원 추천 */}

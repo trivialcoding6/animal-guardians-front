@@ -68,9 +68,5 @@ body {
   }
   body {
     height: 100vh;
-    background-color: #f9fafb;
-  }
-  li {
-    list-style: none;
   }
 }

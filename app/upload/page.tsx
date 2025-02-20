@@ -9,7 +9,6 @@ import Loading from "@/components/service/Loading";
 function UploadPage() {
   const router = useRouter();
   const { isLoading, predictions } = usePredictionStore();
-  console.log("predictions", predictions);
 
   useEffect(() => {
     if (predictions && !isLoading) {
@@ -19,7 +18,7 @@ function UploadPage() {
 
   return (
     <div className="min-h-screen p-4">
-      {isLoading ? (
+      {isLoading || predictions ? (
         <div className="flex justify-center items-center h-screen">
           <Loading />
         </div>

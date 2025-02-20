@@ -10,10 +10,11 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-import { useRouter } from "next/navigation"; // Next.js 13 App Router
+import { useRouter } from "next/navigation";
+import SectionSkeleton from "./SectionSkeleton";
 
 interface ChartProps {
-  predictions: Record<string, number>;
+  predictions: Record<string, number> | null;
 }
 
 function Chart({ predictions }: ChartProps) {
@@ -22,6 +23,10 @@ function Chart({ predictions }: ChartProps) {
   const handleBarClick = (diseaseName: string) => {
     router.push(`/result/detail/${diseaseName}`);
   };
+
+  if (!predictions) {
+    return <SectionSkeleton />;
+  }
 
   const data = Object.entries(predictions).map(([name, percentage]) => ({
     name,

@@ -9,21 +9,21 @@ export default function RecommendationSection() {
   const { predictions } = usePredictionStore();
 
   const highestProbabilityDisease = predictions
-    ? Object.entries(predictions).reduce((max, current) =>
-        current[1] > max[1] ? current : max
-      )[0]
+    ? predictions.reduce((max, current) =>
+        current.probability > max.probability ? current : max
+      ).tag_name
     : null;
 
-  if (!predictions) {
+  if (!predictions || predictions.length === 0) {
     return null;
   }
 
   return (
     <Section className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white">
       {/* 주변 동물병원 추천 */}
-      <Hospitals diseaseName={highestProbabilityDisease} />
+      <Hospitals diseaseType={highestProbabilityDisease} />
       {/* 반려동물 보험 추천 */}
-      <Insuarances diseaseName={highestProbabilityDisease} />
+      <Insuarances diseaseType={highestProbabilityDisease} />
     </Section>
   );
 }

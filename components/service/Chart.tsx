@@ -12,25 +12,34 @@ import {
 } from "recharts";
 import { useRouter } from "next/navigation";
 import SectionSkeleton from "./SectionSkeleton";
+import { getDiseaseTypeKey, getValidDiseaseType } from "@/helper";
+import { DiseaseType } from "@/enum/disease";
+
+interface Prediction {
+  probability: number;
+  tag_name: string;
+}
 
 interface ChartProps {
-  predictions: Record<string, number> | null;
+  predictions: Prediction[] | null;
 }
 
 function Chart({ predictions }: ChartProps) {
   const router = useRouter();
 
-  const handleBarClick = (diseaseName: string) => {
-    router.push(`/result/detail/${diseaseName}`);
+  const handleBarClick = (diseaseType: string) => {
+    if (diseaseType !== DiseaseType.Negative) {
+      router.push(`/result/detail/${getDiseaseTypeKey(diseaseType)}`);
+    }
   };
 
   if (!predictions) {
     return <SectionSkeleton />;
   }
 
-  const data = Object.entries(predictions).map(([name, percentage]) => ({
-    name,
-    percentage,
+  const data = predictions.map((prediction) => ({
+    name: getValidDiseaseType(prediction.tag_name),
+    percentage: prediction.probability,
   }));
 
   return (

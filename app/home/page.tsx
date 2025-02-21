@@ -1,61 +1,242 @@
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import React from "react";
+import { useMediaQuery } from "react-responsive";
+import Link from "next/link";
 
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2, RefreshCw } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
-export default function Home() {
-  const router = useRouter();
+function HomePage() {
+  // 모바일 판단 (768px 이하를 모바일로 가정)
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
-  const handleSelectPet = (pet: "dog" | "cat") => {
-    router.push(`/upload?type=${pet}`);
-  };
+  // 첫 번째 섹션(상단) 카드 3개
+  const topCards = [
+    {
+      title: "AI 학습 및 정확도",
+      description:
+        "업로드한 사진은 AI 모델의 지속적인 학습에 활용되며, 이를 통해 더욱 정밀한 진단이 가능합니다.",
+    },
+    {
+      title: "책임 있는 AI 원칙",
+      description:
+        "AI 윤리 원칙을 준수하며, 분석 결과는 참고용으로 활용됩니다. 최종 진단은 전문 수의사의 판단이 필요합니다.",
+    },
+    {
+      title: "데이터 보안",
+      description:
+        "사용자의 데이터는 개인정보 보호 원칙에 따라 안전하게 저장되며, 동의 없이 외부로 공유되지 않습니다.",
+    },
+  ];
+
+  const analysisCards = [
+    {
+      title: "반점/구진",
+      description: "피부에 나타나는 작은 점이나 붉은 발진이 생기는 현상",
+    },
+    {
+      title: "각질/비듬",
+      description: "피부가 건조해지고 각질이 떨어지거나 비듬이 생기는 현상",
+    },
+    {
+      title: "과다색소침착",
+      description: "피부가 원래보다 어두워지거나 두꺼워지는 현상",
+    },
+    {
+      title: "농포/여드름",
+      description: "피부에 고름이 찬 뾰루지나 여드름이 발생하는 증상",
+    },
+    {
+      title: "미란/궤양",
+      description: "피부가 벗겨지거나 상처가 깊어지는 증상",
+    },
+    {
+      title: "결절/종괴",
+      description: "혹처럼 부어오르거나 덩어리가 만져지는 증상",
+    },
+  ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <header className="flex flex-col items-center justify-center space-y-2 mb-8">
-        <Image src="/images/logo.png" alt="logo" width={50} height={50} />
-        <h1 className="text-3xl font-bold">반려동물 피부 진단</h1>
-        <p className="text-gray-600">반려동물의 종을 선택해주세요.</p>
+    <main className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-8 text-center">
+      {/* 상단 헤더 영역 */}
+      <header className="mb-8">
+        <h1 className="text-2xl font-bold leading-tight md:text-3xl whitespace-break-spaces">
+          반려동물 피부 질환 진단 AI 업로드 가이드
+        </h1>
+        <p className="mt-2 text-gray-600 text-sm md:text-base whitespace-break-spaces">
+          AI를 통한 정확하고 신뢰할 수 있는 피부 진단을 위한 가이드라인
+        </p>
       </header>
 
-      {/* 카드 영역 */}
-      <div className="flex flex-wrap items-center justify-center gap-4">
-        {/* 강아지 카드 */}
-        <Card
-          className="w-60 cursor-pointer transition-transform hover:scale-105"
-          onClick={() => handleSelectPet("dog")}
-        >
-          <CardContent className="flex flex-col items-center justify-center p-4">
-            <Image
-              src="/images/dog.png"
-              alt="강아지"
-              width={600}
-              height={600}
-              className="mb-2"
-            />
-            <p className="font-semibold text-lg">강아지</p>
-          </CardContent>
-        </Card>
+      {/* ───────────────────────────────────────────────────
+          [1] 상단 3개 카드 섹션 
+          모바일: Carousel / 데스크톱: 3열 그리드
+      ─────────────────────────────────────────────────── */}
+      <section className="w-full">
+        {isMobile ? (
+          /* 모바일 화면: shadcn-ui Carousel 활용 */
+          <Carousel className="relative w-full">
+            <CarouselContent className="flex">
+              {topCards.map((card, idx) => (
+                <CarouselItem key={idx} className="w-full flex-shrink-0 px-2">
+                  <Card className="border mx-16">
+                    <CardHeader>
+                      <CardTitle className="text-lg font-semibold">
+                        {card.title}
+                      </CardTitle>
+                      <CardDescription className="text-gray-600 whitespace-break-spaces">
+                        {card.description}
+                      </CardDescription>
+                    </CardHeader>
+                    {idx === 0 && (
+                      <CardContent>
+                        <Badge className="bg-blue-500 text-white">
+                          <RefreshCw className="h-3 w-3 mr-1" />
+                          실시간 업데이트 중
+                        </Badge>
+                      </CardContent>
+                    )}
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+            <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
+          </Carousel>
+        ) : (
+          /* 데스크톱 화면: 3열 그리드 */
+          <div className="grid grid-cols-3 gap-4">
+            {topCards.map((card, idx) => (
+              <Card key={idx} className="border">
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">
+                    {card.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600 whitespace-break-spaces">
+                    {card.description}
+                  </CardDescription>
+                </CardHeader>
+                {idx === 0 && (
+                  <CardContent>
+                    <Badge className="bg-blue-500 text-white space-x-2">
+                      <RefreshCw className="h-3 w-3 mr-1" />
+                      실시간 업데이트 중
+                    </Badge>
+                  </CardContent>
+                )}
+              </Card>
+            ))}
+          </div>
+        )}
+      </section>
 
-        {/* 고양이 카드 */}
-        <Card
-          className="w-60 cursor-pointer transition-transform hover:scale-105"
-          onClick={() => handleSelectPet("cat")}
-        >
-          <CardContent className="flex flex-col items-center justify-center p-4">
-            <Image
-              src="/images/cat.png"
-              alt="고양이"
-              width={600}
-              height={600}
-              className="mb-2"
-            />
-            <p className="font-semibold text-lg">고양이</p>
-          </CardContent>
-        </Card>
+      {/* ───────────────────────────────────────────────────
+          추가 간격
+      ─────────────────────────────────────────────────── */}
+      <div className="w-full">
+        {/* ───────────────────────────────────────────────────
+            [2] AI 분석 가능성 향상 범위 섹션 
+            모바일: Carousel / 데스크톱: 3열 그리드
+        ─────────────────────────────────────────────────── */}
+        <section className="mt-8 w-full">
+          <h2 className="mb-4 text-2xl font-semibold">
+            AI 분석 가능성 향상 범위
+          </h2>
+          {isMobile ? (
+            <Carousel className="relative w-full">
+              <CarouselContent className="flex">
+                {analysisCards.map((card, idx) => (
+                  <CarouselItem key={idx} className="w-full flex-shrink-0 px-2">
+                    <Card className="border mx-16">
+                      <CardHeader>
+                        <CardTitle className="text-lg font-semibold">
+                          {card.title}
+                        </CardTitle>
+                        <CardDescription className="text-gray-600 whitespace-break-spaces">
+                          {card.description}
+                        </CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
+            </Carousel>
+          ) : (
+            <div className="grid grid-cols-3 gap-4">
+              {analysisCards.map((card, idx) => (
+                <Card key={idx} className="border">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-semibold">
+                      {card.title}
+                    </CardTitle>
+                    <CardDescription className="text-gray-600 whitespace-break-spaces">
+                      {card.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* 공정한 데이터 학습 윤리 준수 (녹색 박스) */}
+        <section className="w-full mt-8">
+          <div className="w-full rounded-lg bg-green-100 p-6 text-left">
+            <h2 className="mb-4 text-xl font-semibold text-center md:text-left">
+              공정한 데이터 학습과 윤리적 고려
+            </h2>
+            <ul className="space-y-2">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+                <span>
+                  AI는 편향된 데이터를 배제하고 공정한 진단을 제공합니다.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+                <span>지속적인 검토와 업데이트로 정확도를 향상시킵니다.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+                <span>수의사의 추가 상담을 권장합니다.</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* 업로드 버튼 */}
+        <section className="mt-8">
+          <Link href="/choose">
+            <Button
+              variant="default"
+              size="lg"
+              className="bg-black text-white hover:bg-gray-900"
+            >
+              업로드 하고 진단 시작하기
+            </Button>
+          </Link>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
+
+export default HomePage;

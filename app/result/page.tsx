@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 export default function Result() {
   const router = useRouter();
   const { predictions, previewUrl, reset } = usePredictionStore();
-  console.log("previewUrl", previewUrl);
 
   // 예측 결과가 없으면 업로드 페이지로 이동
   useEffect(() => {

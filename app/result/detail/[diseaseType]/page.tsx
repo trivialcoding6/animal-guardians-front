@@ -1,23 +1,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useDiseaseByName } from "@/query/useDiseaseFetch";
 import { usePredictionStore } from "@/store/prediction";
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { use } from "react";
 import DetailPageSkeleton from "@/components/service/DetailPageSkeleton";
+import { useDiseaseByType } from "@/query/useDiseaseByNameFetch";
 
 export default function DiseaseDetailPage({
   params,
 }: {
-  params: Promise<{ diseaseName: string }>;
+  params: Promise<{ diseaseType: string }>;
 }) {
   const resolvedParams = use(params);
-  const { diseaseName } = resolvedParams;
-  const { data: disease, isLoading } = useDiseaseByName(
-    decodeURIComponent(diseaseName)
+  const { diseaseType } = resolvedParams;
+  console.log(diseaseType);
+  const { data: disease, isLoading } = useDiseaseByType(
+    decodeURIComponent(diseaseType)
   );
   const { reset } = usePredictionStore();
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function DiseaseDetailPage({
           {Array.from({ length: 3 }).map((_, index) => (
             <Image
               key={index}
-              src={`/images/${diseaseName}/example${index + 1}.jpg`}
+              src={`/images/${diseaseType}/example${index + 1}.jpg`}
               alt={`similiar case ${index + 1}`}
               width={300}
               height={300}

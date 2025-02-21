@@ -12,7 +12,6 @@ export async function POST(request: Request) {
     const formData = await request.formData();
     const file = formData.get("image") as File;
 
-    // 허용된 파일 형식 검사
     const allowedTypes = ["image/jpeg", "image/png"];
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(

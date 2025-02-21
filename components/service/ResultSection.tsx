@@ -11,9 +11,9 @@ export default function ResultSection() {
 
   // predictions에서 가장 높은 확률을 가진 질병 이름 찾기
   const highestProbabilityDisease = predictions
-    ? Object.entries(predictions).reduce((max, current) =>
-        current[1] > max[1] ? current : max
-      )[0]
+    ? predictions.reduce((max, current) =>
+        current.probability > max.probability ? current : max
+      ).tag_name
     : null;
 
   return (

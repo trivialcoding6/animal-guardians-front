@@ -13,8 +13,13 @@ import {
 import { useRouter } from "next/navigation";
 import SectionSkeleton from "./SectionSkeleton";
 
+interface Prediction {
+  probability: number;
+  tag_name: string;
+}
+
 interface ChartProps {
-  predictions: Record<string, number> | null;
+  predictions: Prediction[] | null;
 }
 
 function Chart({ predictions }: ChartProps) {
@@ -28,9 +33,9 @@ function Chart({ predictions }: ChartProps) {
     return <SectionSkeleton />;
   }
 
-  const data = Object.entries(predictions).map(([name, percentage]) => ({
-    name,
-    percentage,
+  const data = predictions.map((prediction) => ({
+    name: prediction.tag_name,
+    percentage: prediction.probability,
   }));
 
   return (

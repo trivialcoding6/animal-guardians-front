@@ -9,12 +9,12 @@ export default function RecommendationSection() {
   const { predictions } = usePredictionStore();
 
   const highestProbabilityDisease = predictions
-    ? Object.entries(predictions).reduce((max, current) =>
-        current[1] > max[1] ? current : max
-      )[0]
+    ? predictions.reduce((max, current) =>
+        current.probability > max.probability ? current : max
+      ).tag_name
     : null;
 
-  if (!predictions) {
+  if (!predictions || predictions.length === 0) {
     return null;
   }
 

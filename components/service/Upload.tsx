@@ -24,11 +24,11 @@ function Upload() {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
 
     uploadMutation.mutate(formData, {
       onSuccess: (data) => {
-        setPreviewUrl(data.imageUrl);
+        setPreviewUrl(data.url);
         toast.success("이미지 업로드에 성공했습니다.");
       },
       onError: (error) => {

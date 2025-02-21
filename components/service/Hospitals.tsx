@@ -1,19 +1,23 @@
 import { MapPin, Phone, Building2 } from "lucide-react";
 import Recommend from "./Recommend";
-import { useDiseaseByName } from "@/query/useDiseaseFetch";
+import { useDiseaseByType } from "@/query/useDiseaseByNameFetch";
 import { Button } from "../ui/button";
 import SectionSkeleton from "./SectionSkeleton";
 
 type Props = {
-  diseaseName: string | null;
+  diseaseType: string | null;
 };
 
-function Hospitals({ diseaseName }: Props) {
+function Hospitals({ diseaseType }: Props) {
   const { data: disease, isLoading: diseaseLoading } =
-    useDiseaseByName(diseaseName);
+    useDiseaseByType(diseaseType);
 
-  if (!diseaseName || diseaseLoading || !disease) {
+  if (!diseaseType || diseaseLoading || !disease) {
     return <SectionSkeleton />;
+  }
+
+  if (disease.hospitals.length === 0) {
+    return null;
   }
 
   return (

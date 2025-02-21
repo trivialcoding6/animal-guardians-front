@@ -21,9 +21,9 @@ export default function RecommendationSection() {
   return (
     <Section className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white">
       {/* 주변 동물병원 추천 */}
-      <Hospitals diseaseName={highestProbabilityDisease} />
+      <Hospitals diseaseType={highestProbabilityDisease} />
       {/* 반려동물 보험 추천 */}
-      <Insuarances diseaseName={highestProbabilityDisease} />
+      <Insuarances diseaseType={highestProbabilityDisease} />
     </Section>
   );
 }

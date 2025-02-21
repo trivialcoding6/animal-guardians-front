@@ -1,20 +1,25 @@
 import Recommend from "./Recommend";
-import { useDiseaseByName } from "@/query/useDiseaseFetch";
+import { useDiseaseByType } from "@/query/useDiseaseByNameFetch";
 import { Button } from "../ui/button";
 import { ShieldCheck, ClipboardList } from "lucide-react";
 import SectionSkeleton from "./SectionSkeleton";
 
 type Props = {
-  diseaseName: string | null;
+  diseaseType: string | null;
 };
 
-function Insuarances({ diseaseName }: Props) {
+function Insuarances({ diseaseType }: Props) {
   const { data: disease, isLoading: diseaseLoading } =
-    useDiseaseByName(diseaseName);
+    useDiseaseByType(diseaseType);
 
-  if (!diseaseName || diseaseLoading || !disease) {
+  if (!diseaseType || diseaseLoading || !disease) {
     return <SectionSkeleton />;
   }
+
+  if (disease.insurances.length === 0) {
+    return null;
+  }
+
   return (
     <Recommend title="반려동물 보험">
       <ul className="space-y-4">

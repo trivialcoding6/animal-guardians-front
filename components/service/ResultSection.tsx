@@ -19,7 +19,7 @@ export default function ResultSection() {
   return (
     <Section className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white">
       <Chart predictions={predictions} />
-      <DiseaseInfo diseaseName={highestProbabilityDisease} />
+      <DiseaseInfo diseaseType={highestProbabilityDisease} />
     </Section>
   );
 }

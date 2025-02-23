@@ -5,15 +5,25 @@ interface Prediction {
   tag_name: string;
 }
 
-const analyzeImage = async (imageUrl: string): Promise<Prediction[]> => {
+export type AnalysisVariables = {
+  imageUrl: string;
+  type: "dog" | "cat";
+};
+
+const analyzeImage = async (
+  variables: AnalysisVariables
+): Promise<Prediction[]> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/prediction/predict`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/prediction/${process.env.NEXT_PUBLIC_MODEL_TOOL}/predict`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ image_url: imageUrl }), // 'image_url'로 필드명 변경
+      body: JSON.stringify({
+        image_url: variables.imageUrl,
+        pet_type: variables.type,
+      }), // 'image_url'로 필드명 변경
     }
   );
 
@@ -21,7 +31,6 @@ const analyzeImage = async (imageUrl: string): Promise<Prediction[]> => {
     throw new Error("API 호출 실패");
   }
   const data = await response.json();
-  console.log("data", data);
 
   return data;
 };

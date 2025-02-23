@@ -16,7 +16,7 @@ export default function DiseaseDetailPage({
 }) {
   const resolvedParams = use(params);
   const { diseaseType } = resolvedParams;
-  console.log(diseaseType);
+
   const { data: disease, isLoading } = useDiseaseByType(
     decodeURIComponent(diseaseType)
   );
@@ -43,7 +43,7 @@ export default function DiseaseDetailPage({
 
   const handleRetry = () => {
     reset();
-    router.push("/upload");
+    router.push("/choose");
   };
   return (
     <div className="max-w-screen-lg mx-auto p-6 space-y-10">

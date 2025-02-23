@@ -15,7 +15,7 @@ export default function Result() {
   // 예측 결과가 없으면 업로드 페이지로 이동
   useEffect(() => {
     if (!predictions) {
-      router.push("/upload");
+      router.push("/choose");
     }
   }, [predictions, router]);
 
@@ -26,7 +26,7 @@ export default function Result() {
 
   const handleRetry = () => {
     reset();
-    router.push("/upload");
+    router.push("/choose");
   };
 
   return (

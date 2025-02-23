@@ -14,8 +14,9 @@ export default function Loading() {
           height={100}
         />
       </div>
-      <p className="text-xl font-semibold">
-        이미지를 분석 중입니다. 잠시만 기다려 주세요
+      <p className="text-center text-xl font-semibold">
+        이미지를 분석 중입니다... <br />
+        잠시만 기다려 주세요
       </p>
     </Section>
   );

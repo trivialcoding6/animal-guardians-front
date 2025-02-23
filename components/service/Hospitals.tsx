@@ -37,7 +37,7 @@ function Hospitals({ diseaseType }: Props) {
               <Phone className="w-5 h-5 text-green-500" />
               {hospital.contact_info}
             </p>
-            <Button className="mt-3 px-4 py-1 bg-blue-500 text-white rounded-md text-sm">
+            <Button className="mt-3 px-4 py-1 bg-indigo-500 text-white rounded-md text-sm">
               지도 보러가기
             </Button>
           </li>

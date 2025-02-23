@@ -39,7 +39,7 @@ function Chart({ predictions }: ChartProps) {
 
   const data = predictions.map((prediction) => ({
     name: getValidDiseaseType(prediction.tag_name),
-    percentage: prediction.probability,
+    percentage: prediction.probability * 100,
   }));
 
   return (
@@ -78,7 +78,7 @@ function Chart({ predictions }: ChartProps) {
                   position="right"
                   fill="#333"
                   fontSize={12}
-                  formatter={(value: number) => `${value.toFixed(2)}%`}
+                  formatter={(value: number) => `${Math.round(value)}%`}
                 />
               </Bar>
             </BarChart>

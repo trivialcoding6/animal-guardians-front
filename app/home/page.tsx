@@ -47,14 +47,6 @@ function HomePage() {
 
   const analysisCards = [
     {
-      title: "구진/플라크",
-      description: "피부에 나타나는 작은 점이나 붉은 발진이 생기는 증상",
-    },
-    {
-      title: "각질/비듬/상피성잔고리",
-      description: "피부가 건조해지고 각질이 떨어지거나 비듬이 생기는 증상",
-    },
-    {
       title: "태선화/과다색소침착",
       description: "피부가 원래보다 어두워지거나 두꺼워지는 증상",
     },
@@ -178,7 +170,7 @@ function HomePage() {
               <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
             </Carousel>
           ) : (
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {analysisCards.map((card, idx) => (
                 <Card key={idx} className="border">
                   <CardHeader>

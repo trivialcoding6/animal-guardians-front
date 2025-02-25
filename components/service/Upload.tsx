@@ -5,18 +5,15 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useImageUploadPost } from "@/query/useImageUploadPost";
-import { useImageDelete } from "@/query/useImageDelete";
 import { useImageAnalysisPost } from "@/query/useImageAnalysisPost";
 import { usePredictionStore } from "@/store/prediction";
 import { useRouter } from "next/navigation";
 
-function Upload() {
+function Upload({ type }: { type: "dog" | "cat" }) {
   const { previewUrl, setPredictions, setIsLoading, setPreviewUrl, reset } =
     usePredictionStore();
   const router = useRouter();
-
   const uploadMutation = useImageUploadPost();
-  const deleteMutation = useImageDelete();
   const analysisMutation = useImageAnalysisPost();
 
   const onDrop = (acceptedFiles: File[]) => {
@@ -40,12 +37,8 @@ function Upload() {
 
   const handleReupload = () => {
     if (previewUrl) {
-      deleteMutation.mutate(previewUrl, {
-        onSuccess: () => {
-          setPreviewUrl(null);
-          reset();
-        },
-      });
+      setPreviewUrl(null);
+      reset();
     }
   };
 
@@ -57,7 +50,10 @@ function Upload() {
 
     setIsLoading(true);
     try {
-      const data = await analysisMutation.mutateAsync(previewUrl);
+      const data = await analysisMutation.mutateAsync({
+        imageUrl: previewUrl,
+        type: type,
+      });
       setPredictions(data);
       setPreviewUrl(previewUrl);
       toast.success("이미지 분석이 완료되었습니다.");

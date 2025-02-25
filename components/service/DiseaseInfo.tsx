@@ -7,7 +7,6 @@ function DiseaseInfo({ diseaseType }: { diseaseType: string | null }) {
     diseaseType || ""
   );
 
-  console.log("disease", disease?.type);
   if (!diseaseType || diseaseLoading) {
     return <SectionSkeleton />;
   }
@@ -36,8 +35,12 @@ function DiseaseInfo({ diseaseType }: { diseaseType: string | null }) {
         </div>
       ) : (
         <div className="p-4 flex flex-col justify-center items-center">
-          <p className="text-gray-600 text-2xl">
-            🎉 의심되는 피부 질환이 없습니다.
+          <p className="text-gray-600 text-xl">
+            🎉 현재 이상 징후가 감지되지는 않아요. <br />
+            피부 상태는 건강해보이지만 지속적인 관찰이 필요할 수 있어요. <br />
+            또 다른 부위가 궁금하다면, 하단 버튼을 통해 한 번 더 촬영해주세요!
+            <br />
+            버튼을 통해 한 번 더 촬영해주세요! 🎉
           </p>
         </div>
       )}

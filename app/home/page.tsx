@@ -47,16 +47,8 @@ function HomePage() {
 
   const analysisCards = [
     {
-      title: "반점/구진",
-      description: "피부에 나타나는 작은 점이나 붉은 발진이 생기는 현상",
-    },
-    {
-      title: "각질/비듬",
-      description: "피부가 건조해지고 각질이 떨어지거나 비듬이 생기는 현상",
-    },
-    {
-      title: "과다색소침착",
-      description: "피부가 원래보다 어두워지거나 두꺼워지는 현상",
+      title: "태선화/과다색소침착",
+      description: "피부가 원래보다 어두워지거나 두꺼워지는 증상",
     },
     {
       title: "농포/여드름",
@@ -155,9 +147,7 @@ function HomePage() {
             모바일: Carousel / 데스크톱: 3열 그리드
         ─────────────────────────────────────────────────── */}
         <section className="mt-8 w-full">
-          <h2 className="mb-4 text-2xl font-semibold">
-            AI 분석 가능성 향상 범위
-          </h2>
+          <h2 className="mb-4 text-2xl font-semibold">분석 가능한 증상 범위</h2>
           {isMobile ? (
             <Carousel className="relative w-full">
               <CarouselContent className="flex">
@@ -180,7 +170,7 @@ function HomePage() {
               <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
             </Carousel>
           ) : (
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {analysisCards.map((card, idx) => (
                 <Card key={idx} className="border">
                   <CardHeader>

@@ -1,8 +1,8 @@
 import { MapPin, Phone, Building2 } from "lucide-react";
 import Recommend from "./Recommend";
 import { useDiseaseByType } from "@/query/useDiseaseByNameFetch";
-import { Button } from "../ui/button";
 import SectionSkeleton from "./SectionSkeleton";
+import Link from "next/link";
 
 type Props = {
   diseaseType: string | null;
@@ -37,9 +37,14 @@ function Hospitals({ diseaseType }: Props) {
               <Phone className="w-5 h-5 text-green-500" />
               {hospital.contact_info}
             </p>
-            <Button className="mt-3 px-4 py-1 bg-blue-500 text-white rounded-md text-sm">
-              지도 보러가기
-            </Button>
+            <Link
+              href={`https://${hospital.website}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-3 px-4 py-2 bg-indigo-500 text-white rounded-md text-sm hover:bg-indigo-600 transition-colors"
+            >
+              사이트 바로가기
+            </Link>
           </li>
         ))}
       </ul>

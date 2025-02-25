@@ -22,7 +22,7 @@ interface CardCarouselProps {
 const CardCarousel: FC<CardCarouselProps> = ({ cards }) => {
   // 768px 이하를 모바일로 가정
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  console.log(isMobile);
+
   if (isMobile) {
     // 모바일: 가로 스크롤
     return (

@@ -55,8 +55,6 @@ const fetchDiseaseByType = async (type: string | null) => {
 
   const data = await response.json();
 
-  console.log("data", data);
-
   if (!response.ok) {
     throw new Error("Failed to fetch disease");
   }

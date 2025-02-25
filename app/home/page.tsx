@@ -47,6 +47,10 @@ function HomePage() {
 
   const analysisCards = [
     {
+      title: "각질/비듬/상피성잔고리",
+      description: "피부가 건조해지고 각질이 떨어지거나 비듬이 생기는 증상",
+    },
+    {
       title: "태선화/과다색소침착",
       description: "피부가 원래보다 어두워지거나 두꺼워지는 증상",
     },
@@ -146,45 +150,29 @@ function HomePage() {
             [2] AI 분석 가능성 향상 범위 섹션 
             모바일: Carousel / 데스크톱: 3열 그리드
         ─────────────────────────────────────────────────── */}
-        <section className="mt-8 w-full">
+        <section className="mt-8 py-8 w-full">
           <h2 className="mb-4 text-2xl font-semibold">분석 가능한 증상 범위</h2>
-          {isMobile ? (
-            <Carousel className="relative w-full">
-              <CarouselContent className="flex">
-                {analysisCards.map((card, idx) => (
-                  <CarouselItem key={idx} className="w-full flex-shrink-0 px-2">
-                    <Card className="border mx-16">
-                      <CardHeader>
-                        <CardTitle className="text-lg font-semibold">
-                          {card.title}
-                        </CardTitle>
-                        <CardDescription className="text-gray-600 whitespace-break-spaces">
-                          {card.description}
-                        </CardDescription>
-                      </CardHeader>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
-              <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
-            </Carousel>
-          ) : (
-            <div className="grid grid-cols-2 gap-4">
+
+          <Carousel className="relative w-full">
+            <CarouselContent className="flex">
               {analysisCards.map((card, idx) => (
-                <Card key={idx} className="border">
-                  <CardHeader>
-                    <CardTitle className="text-lg font-semibold">
-                      {card.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-600 whitespace-break-spaces">
-                      {card.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
+                <CarouselItem key={idx} className="w-full flex-shrink-0 px-2">
+                  <Card className="border mx-16 h-30 flex flex-col justify-center">
+                    <CardHeader>
+                      <CardTitle className="text-lg font-semibold">
+                        {card.title}
+                      </CardTitle>
+                      <CardDescription className="text-gray-600 whitespace-break-spaces">
+                        {card.description}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                </CarouselItem>
               ))}
-            </div>
-          )}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+            <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
+          </Carousel>
         </section>
 
         {/* 공정한 데이터 학습 윤리 준수 (녹색 박스) */}

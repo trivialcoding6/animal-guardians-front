@@ -65,7 +65,7 @@ function Chart({ predictions }: ChartProps) {
                 width={120}
                 tick={{ fontSize: 12 }}
               />
-              <Tooltip formatter={(value: number) => `${Math.round(value)}%`} />
+              <Tooltip formatter={(value: number) => `${value.toFixed(2)}%`} />
               <Bar
                 dataKey="percentage"
                 fill="#6366F1"
@@ -78,7 +78,7 @@ function Chart({ predictions }: ChartProps) {
                   position="right"
                   fill="#333"
                   fontSize={12}
-                  formatter={(value: number) => `${Math.round(value)}%`}
+                  formatter={(value: number) => `${Math.floor(value)}%`}
                 />
               </Bar>
             </BarChart>
